@@ -26,5 +26,5 @@ class Candidate(models.Model):
     scheduled_by            =       models.CharField(max_length=100)
     interviewr_name         =       models.CharField(max_length=100)
     interviewr_mail         =       models.EmailField()
-    status                  =       models.CharField(max_length=50)
-    remark                  =       models.CharField(max_length=30,choices=Status_choices)
+    status                  =       models.CharField(max_length=150,choices=Status_choices)
+    remark                  =       models.CharField(max_length=200)
