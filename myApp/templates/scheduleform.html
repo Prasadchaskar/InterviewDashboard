@@ -1,3 +1,4 @@
+{% load crispy_forms_tags %}
 <!doctype html>
 <html lang="en">
 
@@ -16,6 +17,7 @@
 
 <body>
   <div class="container">
+    
     <section>
       <div class="container">
 
@@ -26,7 +28,7 @@
                 <h2>Register</h>
               </div>
             </div>
-            <form method="POST"> {% csrf_token %}
+           <form method="post" enctype="multipart/form-data"> {% csrf_token %}
               <div class="row align-items-center">
                 <div class="col mt-4">
                   <h5><Label>Candidate Name</Label></h5>
@@ -102,16 +104,20 @@
                   <h5><Label>Remark</Label></h5>
                   {{ form.remark }}
                 </div>
-              </div>
-              <div class="row justify-content-start mt-4">
-                <button class="btn btn-primary mt-4" type="submit">Submit</button>
-              </div>
-            </form>
+              </div> 
+            
+              <div class="form-actions">
+                    <button type="submit" class="btn btn-info">Submit</button>
+          
+            </div> 
+            </form> 
+          
           </div>
         </div>
       </div>
   </div>
   </section>
+
   </div>
 
   <!-- Optional JavaScript; choose one of the two! -->

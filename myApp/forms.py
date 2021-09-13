@@ -1,7 +1,9 @@
 from django import forms 
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.conf import settings
 from . models import Candidate
+from django.forms import ModelForm
 class UserRegisterForm(UserCreationForm):
     email = forms.EmailField()
 
@@ -11,16 +13,19 @@ class UserRegisterForm(UserCreationForm):
 
 class DateInput(forms.DateInput):
     input_type = 'date'
+    # format='%Y/%m/%d'
 
-class TimeInput(forms.DateInput):
+class TimeInput(forms.TimeInput):
     input_type = 'time'
-class ScheduleForm(forms.ModelForm):
+    # format = ''''
+class ScheduleForm(ModelForm):
     class Meta:
         model = Candidate
         fields = '__all__'
+       
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control'}),
-            'candidate_contact': forms.NumberInput(attrs={'class': 'form-control'}),
+            'candidate_contact': forms.TextInput(attrs={'class': 'form-control'}),
             'candidate_mail': forms.TextInput(attrs={'class': 'form-control'}),
             'candidate_cv': forms.FileInput(attrs={'class': 'form-control'}),
             'avialable_for': forms.Select(attrs={'class': 'form-select'}),

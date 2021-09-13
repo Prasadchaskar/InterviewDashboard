@@ -1,4 +1,3 @@
-from typing import ValuesView
 from django.urls import path,include
 from . import views
 urlpatterns = [

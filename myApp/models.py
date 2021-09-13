@@ -21,7 +21,7 @@ class Candidate(models.Model):
     candidate_contact       =       models.CharField(max_length=10)
     candidate_mail          =       models.EmailField()
     candidate_cv            =       models.FileField(upload_to='media/')
-    avialable_for           =       models.CharField(max_length=30,choices=Available_choices)
+    avialable_for           =       models.CharField(max_length=80,choices=Available_choices)
     company                 =       models.CharField(max_length=50)
     technology              =       models.CharField(max_length=50)
     post                    =       models.CharField(max_length=30)
