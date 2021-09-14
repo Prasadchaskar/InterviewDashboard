@@ -2,19 +2,44 @@
 
 {% block title %}Home{% endblock title %}
 {% block body %}
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="{% url 'home' %}">Home</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+     {% if user.is_authenticated %}
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'createsched' %}">Create Scheduled</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+      </li>
+     <h3 style="color: aliceblue; margin-left: 20pc;">Welcome &nbsp;{{ user.username }}</h3>
+     {% else %}
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'login' %}">Login</a>
+      </li>
+      {% endif %}
+    </ul>
+  </div>
+  </nav>
+
+
+{% if user.is_authenticated %}
 <table>
   <thead>
     <tr>
       <th>Candidate Name</th>
-      <th>Candidate Contact</th>
       <th>Candidate Email</th>
-      <th>avialable_for</th>
-      <th>Company</th>
       <th>Technology</th>        
       <th>Post</th>      
       <th>Scheduled Date</th>      
       <th>Scheduled Time</th>
-       <th>Scheduled By</th>
+      <th>Scheduled By</th>
       <th>Interviewer Name</th>           
       <th>Interviewer Email</th>
     </tr>
@@ -23,10 +48,7 @@
     {% for rec in records %}
     <tr>
       <td data-column="First Name">{{ rec.name}}</td>
-      <td data-column="Last Name">{{ rec.candidate_contact }}</td>
       <td data-column="Job Title">{{ rec.candidate_mail}}</td>
-      <td data-column="Twitter">{{ rec.avialable_for}}</td>
-      <td data-column="Twitter">{{ rec.company}}</td>
       <td data-column="Twitter">{{ rec.technology}}</td>
       <td data-column="Twitter">{{ rec.post}}</td>
       <td data-column="Twitter">{{ rec.scheduled_date}}</td>
@@ -38,5 +60,19 @@
     {% endfor %}
   </tbody>
 </table>
+{% else %}
+
+<div class="container my-3">
+  <div class="card text-center">
+    <div class="card-header">
+      Logine Error
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">Login to your account</h5>
+      <a href="{% url 'login' %}" class="btn btn-primary">Login</a>
+    </div>
+  </div>
+</div>
+{% endif %}
 {% endblock body %}
 
