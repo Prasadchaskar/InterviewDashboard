@@ -6,7 +6,6 @@ from . models import Candidate
 from django.forms import ModelForm
 class UserRegisterForm(UserCreationForm):
     email = forms.EmailField()
-
     class Meta:
         model = User
         fields = ['username', 'email', 'password1', 'password2']
@@ -40,3 +39,7 @@ class ScheduleForm(ModelForm):
             'status': forms.Select(attrs={'class': 'form-select'}),
             'remark': forms.TextInput(attrs={'class': 'form-control'}),
         }
+class UpdateStatus(ModelForm):
+     class Meta:
+        model = Candidate
+        fields = ['status','remark']
