@@ -25,7 +25,7 @@ def Interviewschedul(request):
             email = EmailMessage(
                         f'{comp}: Invitation to Interview',
                         f'Dear {intv_name} \nWe would like to invite you to interview for the role with {can_name},{job_post} in {tech} \nPlease reply to this email directly with your availability during the following date and time options:\n{inv_date}-{inv_time}\n Sincerely {comp}',
-                        'chaskarbittu2000@gmail.com',
+                        'Your Email',
                         [intv_email]
                     )
             email.send(fail_silently=False)
