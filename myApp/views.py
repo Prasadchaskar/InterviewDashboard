@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect,get_object_or_404
 from . models import Candidate
 from . forms import ScheduleForm,UpdateStatus
 from django.core.mail import send_mail
+from django.core.mail import EmailMessage
 # Create your views here.
 
 
