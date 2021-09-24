@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect,get_object_or_404
 from . models import Candidate
 from . forms import ScheduleForm,UpdateStatus
 from django.core.mail import send_mail
+from django.core.mail import EmailMessage
 # Create your views here.
 
 
@@ -21,9 +22,16 @@ def Interviewschedul(request):
             inv_date = form.cleaned_data['scheduled_date']
             inv_time = form.cleaned_data['scheduled_time']
             comp = form.cleaned_data['company']
-            send_mail(f'{comp}: Invitation to Interview',
-            f'Dear {intv_name} \nWe would like to invite you to interview for the role with {can_name},{job_post} \nPlease reply to this email directly with your availability during the following date and time options:\n{inv_date}-{inv_time} \n Sincerely {comp}','chaskarbittu2000@gmail.com',
-            [intv_email],fail_silently=False)
+            tech = form.cleaned_data['technology']
+            cv = form.cleaned_data['candidate_cv']
+            
+            email = EmailMessage(
+                        f'{comp}: Invitation to Interview',
+                        f'Dear {intv_name} \nWe would like to invite you to interview for the role with {can_name},{job_post} in {tech} \nPlease reply to this email directly with your availability during the following date and time options:\n{inv_date}-{inv_time}\n Sincerely {comp}',
+                        'Your Mail',
+                        [intv_email]
+                    )
+            email.send(fail_silently=False)
             return redirect('home')
     else:
         form = ScheduleForm()
