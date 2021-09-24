@@ -9,7 +9,9 @@ def home(request):
     records = Candidate.objects.all().order_by('-scheduled_date')
     return render(request,'home.html',{'records':records})
 def Interviewschedul(request):
-    if form.is_valid():
+    if request.method == 'POST':
+        form = ScheduleForm(request.POST,request.FILES)
+        if form.is_valid():
             form.save()
             can_name = form.cleaned_data['name']
             can_email = form.cleaned_data['candidate_mail']
@@ -25,7 +27,7 @@ def Interviewschedul(request):
             email = EmailMessage(
                         f'{comp}: Invitation to Interview',
                         f'Dear {intv_name} \nWe would like to invite you to interview for the role with {can_name},{job_post} in {tech} \nPlease reply to this email directly with your availability during the following date and time options:\n{inv_date}-{inv_time}\n Sincerely {comp}',
-                        'Your Email',
+                        'Your Mail',
                         [intv_email]
                     )
             email.send(fail_silently=False)
