@@ -43,12 +43,13 @@
       <th>Interviewer Name</th>           
       <th>Interviewer Email</th>
       <th>Remark</th>
+      <th>Status</th>
     </tr>
   </thead>
   <tbody>
     {% for rec in records %}
     <tr>
-      <td data-column="First Name">{{ rec.name}}</td>
+      <td data-column="First Name"><a href="{% url 'update' rec.id %}">{{ rec.name}}</a></td>     
       <td data-column="Job Title">{{ rec.candidate_mail}}</td>
       <td data-column="Twitter">{{ rec.technology}}</td>
       <td data-column="Twitter">{{ rec.post}}</td>
@@ -57,7 +58,8 @@
       <td data-column="Twitter">{{ rec.scheduled_by}}</td>
       <td data-column="Twitter">{{ rec.interviewr_name}}</td>
       <td data-column="Twitter">{{ rec.interviewr_mail}}</td>
-      <td data-column="Twitter">{{ rec.remark}}</td>
+      <td data-column="Twitter">{{ rec.remark}}</td> 
+      <td data-column="Twitter">{{ rec.status}}</td>   
     </tr>
     {% endfor %}
   </tbody>
