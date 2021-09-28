@@ -39,7 +39,7 @@ def Interviewschedul(request):
 
 def update(request,id):
     obj= get_object_or_404(Candidate, id=id)
-        
+    can_details = Candidate.objects.get(id=id)
     form = UpdateStatus(request.POST or None, instance= obj)
     context= {'form': form}
 
@@ -49,5 +49,5 @@ def update(request,id):
         return redirect('home')
         
     else:
-        context= {'form': form}
-    return render(request,'scheduleform.html' , context)
+        context= {'form': form,'can_details':can_details}
+    return render(request,'Updateform.html' , context)

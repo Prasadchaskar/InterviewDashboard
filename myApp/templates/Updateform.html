@@ -36,74 +36,73 @@
                 <h2>Candidate Information</h>
               </div>
             </div>
-          
+           <form method="post" enctype="multipart/form-data"> {% csrf_token %}
               <div class="row align-items-center">
                 <div class="col mt-4">
                   <h5><Label>Candidate Name</Label></h5>
-                  {{ form.name }}
+                  <b>{{ can_details.name }}</b>
                 </div>
               </div>
               <div class="row align-items-center mt-4">
                 <div class="col">
                   <h5><Label>Candidate Contact</Label></h5>
-                  {{ form.candidate_contact }}
+                  <b>{{ can_details.candidate_contact }}</b>
                 </div>
                 <div class="col">
                   <h5><Label>Candidate Eamail</Label></h5>
-                  {{ form.candidate_mail }}
+                 <b> {{ can_details.candidate_mail }}</b>
                 </div>
               </div>
               <div class="row align-items-center mt-4">
                 <div class="col">
                   <h5><Label>Candidate CV</Label></h5>
-                  {{ form.candidate_cv }}
+                  <b><a href="{{can_details.candidate_cv.url}}">{{ can_details.name }}-CV</a></b>
                 </div>
                 <div class="col">
                   <h5><Label>Available For</Label></h5>
-                  {{ form.avialable_for }}
+                 <b> {{ can_details.avialable_for }}</b>
                 </div>
               </div>
               <div class="row align-items-center mt-4">
                 <div class="col">
                   <h5><Label>Company</Label></h5>
-                  {{ form.company }}
+                 <b> {{ can_details.company }}</b>
                 </div>
                 <div class="col">
                   <h5><Label>Technology</Label></h5>
-                  {{ form.technology }}
+                 <b> {{ can_details.technology }}</b>
                 </div>
               </div>
               <div class="row align-items-center mt-4">
                 <div class="col">
                   <h5><Label>Post</Label></h5>
-                  {{ form.post }}
+                  <b>{{ can_details.post }}</b>
                 </div>
                 <div class="col">
                   <h5><Label>Scheduled Date</Label></h5>
-                  {{ form.scheduled_date }}
+                 <b> {{ can_details.scheduled_date }}</b>
                 </div>
               </div>
               <div class="row align-items-center mt-4">
                 <div class="col">
                   <h5><Label>Scheduled Time</Label></h5>
-                  {{ form.scheduled_time }}
+                 <b> {{ can_details.scheduled_time }}</b>
                 </div>
                 <div class="col">
                   <h5><Label>Scheduled By</Label></h5>
-                  {{ form.scheduled_by }}
+                 <b> {{ can_details.scheduled_by }}</b>
                 </div>
               </div>
               <div class="row align-items-center mt-4">
                 <div class="col">
                   <h5><Label>Interviewer Name</Label></h5>
-                  {{ form.interviewr_name }}
+                <b>  {{ can_details.interviewr_name }}</b>
                 </div>
                 <div class="col">
                   <h5><Label>Interviewer Mail</Label></h5>
-                  {{ form.interviewr_mail }}
+                 <b> {{ can_details.interviewr_mail }}</b>
                 </div>
               </div>
-               <form method="post" enctype="multipart/form-data"> {% csrf_token %}
               <div class="row align-items-center mt-4">
                 <div class="col">
                   <h5><Label>Status</Label></h5>
