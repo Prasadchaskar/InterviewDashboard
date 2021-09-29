@@ -36,7 +36,7 @@
                 <h2>Candidate Information</h>
               </div>
             </div>
-           <form method="post" enctype="multipart/form-data"> {% csrf_token %}
+           
               <div class="row align-items-center">
                 <div class="col mt-4">
                   <h5><Label>Candidate Name</Label></h5>
@@ -103,6 +103,7 @@
                  <b> {{ can_details.interviewr_mail }}</b>
                 </div>
               </div>
+              <form method="post" enctype="multipart/form-data"> {% csrf_token %}
               <div class="row align-items-center mt-4">
                 <div class="col">
                   <h5><Label>Status</Label></h5>
