@@ -52,7 +52,11 @@
     <tr>
       <td data-column="First Name"><a href="{% url 'update' rec.id %}">{{ rec.name}}</a></td>
       <td data-column="Job Title">{{ rec.candidate_mail}}</td>
-      <td data-column="Twitter">{{ rec.status}}</td>
+      {% if  rec.status == 'Showed Up' %}
+      <td data-column="Twitter" style="color: red;">{{ rec.status}}</td>    
+      {% else %}
+      <td data-column="Twitter" style="color: green;">{{ rec.status}}</td>
+      {% endif %}
       <td data-column="Twitter">{{ rec.technology}}</td>
       <td data-column="Twitter">{{ rec.post}}</td>
       <td data-column="Twitter">{{ rec.scheduled_date}}</td>
