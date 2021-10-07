@@ -51,3 +51,12 @@ def update(request,id):
     else:
         context= {'form': form,'can_details':can_details}
     return render(request,'Updateform.html' , context)
+
+
+def Search(request):
+    if request.method == 'POST':
+        search = request.POST['s']
+        records = Candidate.objects.filter(name__contains=search)
+        return render(request,'search.html',{'search':search,'records':records})
+    else:
+        return render(request,'search.html',{})
