@@ -17,6 +17,20 @@ def Interviewschedul(request):
         if form.is_valid():
             can_con = form.cleaned_data['candidate_contact']
             if Candidate.objects.filter(candidate_contact__contains=can_con) != None:
+                request.session['name'] = request.POST['name']
+                request.session['candidate_contact']=request.POST['candidate_contact']
+                request.session['candidate_mail']=request.POST['candidate_mail']
+                request.session['avialable_for']=request.POST['avialable_for']
+                request.session['company']=request.POST['company']
+                request.session['technology']=request.POST['technology']
+                request.session['post']=request.POST['post']
+                request.session['scheduled_date']=request.POST['scheduled_date']
+                request.session['scheduled_time']=request.POST['scheduled_time']
+                request.session['scheduled_by']=request.POST['scheduled_by']
+                request.session['interviewr_name']=request.POST['interviewr_name']
+                request.session['interviewr_mail']=request.POST['interviewr_mail']
+                request.session['status']=request.POST['status']
+                request.session['remark']=request.POST['remark']
                 return render(request, 'error.html')
             else:
                 form.save()
@@ -72,5 +86,26 @@ def Search(request):
 
 
 def Schedul_anyway(request):
-    # Schedul_anyway logic
+    name = request.session.get('name')
+    candidate_contact = request.session.get('candidate_contact')
+    candidate_mail = request.session.get('candidate_mail')
+    candidate_cv = request.session.get('candidate_cv')
+    avialable_for = request.session.get('avialable_for')
+    company = request.session.get('company')
+    technology = request.session.get('technology')
+    post = request.session.get('post')
+    scheduled_date = request.session.get('scheduled_date')
+    scheduled_time = request.session.get('scheduled_time')
+    scheduled_by = request.session.get('scheduled_by')
+    interviewr_name = request.session.get('interviewr_name')
+    interviewr_mail = request.session.get('interviewr_mail')
+    status = request.session.get('status')
+    remark = request.session.get('remark')
+    candidate = Candidate(name=name,candidate_contact = candidate_contact,candidate_cv=candidate_cv,
+                  candidate_mail=candidate_mail,avialable_for=avialable_for,company=company,
+                  technology=technology,post=post,scheduled_date=scheduled_date,scheduled_time=scheduled_time,
+                  scheduled_by=scheduled_by,interviewr_mail=interviewr_mail,interviewr_name=interviewr_name,
+                  status=status,remark=remark)
+    candidate.save()
+    return redirect('home')
     return render(request, 'error.html')
