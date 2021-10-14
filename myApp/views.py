@@ -18,19 +18,23 @@ def Interviewschedul(request):
             can_con = form.cleaned_data['candidate_contact']
             if Candidate.objects.filter(candidate_contact__contains=can_con) != None:
                 request.session['name'] = request.POST['name']
-                request.session['candidate_contact']=request.POST['candidate_contact']
-                request.session['candidate_mail']=request.POST['candidate_mail']
-                request.session['avialable_for']=request.POST['avialable_for']
-                request.session['company']=request.POST['company']
-                request.session['technology']=request.POST['technology']
-                request.session['post']=request.POST['post']
-                request.session['scheduled_date']=request.POST['scheduled_date']
-                request.session['scheduled_time']=request.POST['scheduled_time']
-                request.session['scheduled_by']=request.POST['scheduled_by']
-                request.session['interviewr_name']=request.POST['interviewr_name']
-                request.session['interviewr_mail']=request.POST['interviewr_mail']
-                request.session['status']=request.POST['status']
-                request.session['remark']=request.POST['remark']
+                request.session['candidate_contact'] = request.POST['candidate_contact']
+                request.session['candidate_mail'] = request.POST['candidate_mail']
+                request.session['avialable_for'] = request.POST['avialable_for']
+                request.session['company'] = request.POST['company']
+                request.session['candidate_cv'] = '/media/' + \
+                    str(request.FILES.get('candidate_cv'))
+                request.session['technology'] = request.POST['technology']
+                request.session['post'] = request.POST['post']
+                request.session['scheduled_date'] = request.POST['scheduled_date']
+                request.session['scheduled_time'] = request.POST['scheduled_time']
+                request.session['scheduled_by'] = request.POST['scheduled_by']
+                request.session['interviewr_name'] = request.POST['interviewr_name']
+                request.session['interviewr_mail'] = request.POST['interviewr_mail']
+                request.session['status'] = request.POST['status']
+                request.session['remark'] = request.POST['remark']
+                candidate_cv = Candidate.objects.filter(
+                    candidate_cv__contains=request.session['candidate_cv'])
                 return render(request, 'error.html')
             else:
                 form.save()
@@ -90,6 +94,7 @@ def Schedul_anyway(request):
     candidate_contact = request.session.get('candidate_contact')
     candidate_mail = request.session.get('candidate_mail')
     candidate_cv = request.session.get('candidate_cv')
+    print("***", candidate_cv)
     avialable_for = request.session.get('avialable_for')
     company = request.session.get('company')
     technology = request.session.get('technology')
@@ -101,11 +106,20 @@ def Schedul_anyway(request):
     interviewr_mail = request.session.get('interviewr_mail')
     status = request.session.get('status')
     remark = request.session.get('remark')
-    candidate = Candidate(name=name,candidate_contact = candidate_contact,candidate_cv=candidate_cv,
-                  candidate_mail=candidate_mail,avialable_for=avialable_for,company=company,
-                  technology=technology,post=post,scheduled_date=scheduled_date,scheduled_time=scheduled_time,
-                  scheduled_by=scheduled_by,interviewr_mail=interviewr_mail,interviewr_name=interviewr_name,
-                  status=status,remark=remark)
+
+    candidate = Candidate(name=name, candidate_contact=candidate_contact,
+                          candidate_mail=candidate_mail, candidate_cv=candidate_cv, avialable_for=avialable_for, company=company,
+                          technology=technology, post=post, scheduled_date=scheduled_date, scheduled_time=scheduled_time,
+                          scheduled_by=scheduled_by, interviewr_mail=interviewr_mail, interviewr_name=interviewr_name,
+                          status=status, remark=remark)
     candidate.save()
+
+    email = EmailMessage(
+                    f'{company}: Invitation to Interview',
+                    f'Dear {interviewr_name} \nWe would like to invite you to interview for the role with {name},{post} in {technology} \nPlease reply to this email directly with your availability during the following date and time options:\n{scheduled_date}-{scheduled_time}\n Sincerely {company}',
+                    'Your Email',
+                    [interviewr_mail]
+                )
+    email.send(fail_silently=False)
     return redirect('home')
     return render(request, 'error.html')
