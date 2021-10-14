@@ -15,8 +15,10 @@ def Interviewschedul(request):
     if request.method == 'POST':
         form = ScheduleForm(request.POST, request.FILES)
         if form.is_valid():
-            can_con = form.cleaned_data['candidate_contact']
-            if Candidate.objects.filter(candidate_contact__contains=can_con) != None:
+            can_con = form.cleaned_data['candidate_contact']    
+            if Candidate.objects.filter(candidate_contact__contains=can_con).exists():
+                var = Candidate.objects.filter(candidate_contact__contains=can_con)
+                print("****",var)
                 request.session['name'] = request.POST['name']
                 request.session['candidate_contact'] = request.POST['candidate_contact']
                 request.session['candidate_mail'] = request.POST['candidate_mail']
@@ -33,8 +35,6 @@ def Interviewschedul(request):
                 request.session['interviewr_mail'] = request.POST['interviewr_mail']
                 request.session['status'] = request.POST['status']
                 request.session['remark'] = request.POST['remark']
-                candidate_cv = Candidate.objects.filter(
-                    candidate_cv__contains=request.session['candidate_cv'])
                 return render(request, 'error.html')
             else:
                 form.save()
